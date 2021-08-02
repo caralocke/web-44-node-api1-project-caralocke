@@ -38,3 +38,17 @@ server.get('/api/users', (req, res) => {
             })
         })
 })
+
+server.get('/api/users/:id', (req, res) => {
+    const id = req.params.id
+    Users.findById(id)
+        .then(user => {
+            if(!user) {
+                res.status(404).json({
+                    message: `user with ${id} does not exist`
+                })
+            } else {
+                res.status(200).json(user)
+            }
+        })
+})
